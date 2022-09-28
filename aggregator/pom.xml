@@ -37,6 +37,11 @@
 			<artifactId>api-gateway</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
+		<dependency>
+			<groupId>com.stackroute</groupId>
+			<artifactId>feedback-review-service</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
 	</dependencies>
 
 	<build>
