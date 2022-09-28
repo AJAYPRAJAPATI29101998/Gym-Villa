@@ -9,9 +9,9 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.stackroute</groupId>
-    <artifactId>product-boilerplate</artifactId>
+    <artifactId>GymBuddy</artifactId>
     <version>1.0.0</version>
-    <name>Product Boilerplate</name>
+    <name>GymBuddy</name>
     <description>Product Boilerplate Project</description>
     <packaging>pom</packaging>
 
@@ -25,7 +25,6 @@
         <module>config-server</module>
         <module>eureka-server</module>
         <module>api-gateway</module>
-        <module>product-webapp</module>
         <module>aggregator</module>
     </modules>
 

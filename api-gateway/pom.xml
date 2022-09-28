@@ -4,7 +4,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
 		<groupId>com.stackroute</groupId>
-		<artifactId>product-boilerplate</artifactId>
+		<artifactId>GymBuddy</artifactId>
 		<version>1.0.0</version>
 		<relativePath>../pom.xml</relativePath>
 		<!-- lookup parent from repository -->
