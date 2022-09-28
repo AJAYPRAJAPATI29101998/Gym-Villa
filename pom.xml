@@ -9,9 +9,9 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.stackroute</groupId>
-    <artifactId>GymBuddy</artifactId>
+    <artifactId>GymVila</artifactId>
     <version>1.0.0</version>
-    <name>GymBuddy</name>
+    <name>GymVila</name>
     <description>Product Boilerplate Project</description>
     <packaging>pom</packaging>
 
