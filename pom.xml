@@ -27,7 +27,7 @@
         <module>api-gateway</module>
         <module>aggregator</module>
         <module>feedback-review-service</module>
-
+        <module>chat-service</module>
     </modules>
 
     <dependencies>
