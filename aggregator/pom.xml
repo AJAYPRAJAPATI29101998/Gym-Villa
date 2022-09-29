@@ -16,18 +16,28 @@
 	<properties>
 		<java.version>11</java.version>
 	</properties>
+
 	<dependencies>
+
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter</artifactId>
 		</dependency>
-
+		<dependency>
+			<groupId>com.stackroute</groupId>
+			<artifactId>api-gateway</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
 		<dependency>
 		<groupId>com.stackroute</groupId>
 		<artifactId>api-gateway</artifactId>
 		<version>0.0.1-SNAPSHOT</version>
 		</dependency>
-
+		<dependency>
+			<groupId>com.stackroute</groupId>
+			<artifactId>gym-owner-service</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
 		<dependency>
 			<groupId>com.stackroute</groupId>
 			<artifactId>payment-service</artifactId>

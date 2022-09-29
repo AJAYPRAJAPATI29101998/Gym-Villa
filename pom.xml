@@ -28,7 +28,7 @@
         <module>aggregator</module>
         <module>feedback-review-service</module>
         <module>user-profile-service</module>
-
+        <module>gym-owner-service</module>
 
         <module>chat-service</module>
 
