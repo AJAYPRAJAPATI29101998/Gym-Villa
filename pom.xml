@@ -29,9 +29,12 @@
         <module>feedback-review-service</module>
         <module>user-profile-service</module>
 
+
         <module>chat-service</module>
 
         <module>email-service</module>
+
+        <module>payment-service</module>
 
 
     </modules>
