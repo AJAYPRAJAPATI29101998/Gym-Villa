@@ -44,7 +44,11 @@
 		</dependency>
 		<dependency>
 			<groupId>com.stackroute</groupId>
+
 			<artifactId>chat-service</artifactId>
+
+
+
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
 	</dependencies>
