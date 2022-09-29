@@ -31,6 +31,7 @@
         <module>chat-service</module>
 
         <module>email-service</module>
+        <module>user-authentication</module>
 
 
     </modules>
