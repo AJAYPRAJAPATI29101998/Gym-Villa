@@ -9,61 +9,53 @@
 		<relativePath>../pom.xml</relativePath>
 		<!-- lookup parent from repository -->
 	</parent>
+
 	<groupId>com.stackroute</groupId>
-	<artifactId>email-service</artifactId>
+	<artifactId>payment-service</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>email-service</name>
-	<description>Email Service for GymVilla</description>
+	<name>payment-service</name>
+	<description>payment service for Gymvilla</description>
 	<properties>
 		<java.version>11</java.version>
 	</properties>
 	<dependencies>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-data-jpa</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-mail</artifactId>
-		</dependency>
+
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
-		<dependency>
-			<groupId>org.springdoc</groupId>
-			<artifactId>springdoc-openapi-ui</artifactId>
-			<version>1.6.11</version>
-		</dependency>
+
+
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-data-jpa</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-amqp</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.mockito</groupId>
-			<artifactId>mockito-core</artifactId>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.derby</groupId>
-			<artifactId>derby</artifactId>
+			<artifactId>spring-boot-devtools</artifactId>
 			<scope>runtime</scope>
+			<optional>true</optional>
 		</dependency>
 		<dependency>
-			<groupId>com.icegreen</groupId>
-			<artifactId>greenmail-junit5</artifactId>
-			<version>2.0.0-alpha-2</version>
-			<scope>test</scope>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+			<optional>true</optional>
 		</dependency>
+
+
+		<!-- https://mvnrepository.com/artifact/com.paypal.sdk/rest-api-sdk -->
+		<dependency>
+			<groupId>com.paypal.sdk</groupId>
+			<artifactId>rest-api-sdk</artifactId>
+			<version>1.14.0</version>
+		</dependency>
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+		</dependency>
+
+
 	</dependencies>
 
 	<build>
