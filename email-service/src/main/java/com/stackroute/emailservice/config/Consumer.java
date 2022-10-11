@@ -14,14 +14,14 @@ public class Consumer {
     @Autowired
     private EmailServiceImpl emailService;
 
-    @RabbitListener(queues = "user_queue")
+    @RabbitListener(queues = "booking_queue")
     public void getUserDtoFromRabbitMq(UserDTO userDTO)
     {
         System.out.println(userDTO.toString());
         Email email=new Email();
         email.setRecipientId(userDTO.getRecipientId());
         email.setSubject(userDTO.getSubject());
-        email.setMessageBody(userDTO.getMessageBody());
+        email.setMessageBody("This is message body");
     }
 
 

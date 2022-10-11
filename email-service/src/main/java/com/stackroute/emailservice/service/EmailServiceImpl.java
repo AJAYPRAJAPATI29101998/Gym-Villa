@@ -1,6 +1,7 @@
 package com.stackroute.emailservice.service;
 
 import com.stackroute.emailservice.pojo.Email;
+import org.springframework.mail.MailException;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
@@ -16,7 +17,7 @@ public class EmailServiceImpl implements EmailserviceI{
     }
 
     @Override
-    public String sendEmail(String recipientId,String subject,String messageBody) {
+    public String sendEmail(String recipientId,String subject,String messageBody) throws MailException {
 
         SimpleMailMessage message=new SimpleMailMessage();
 
