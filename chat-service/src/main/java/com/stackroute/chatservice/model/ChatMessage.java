@@ -1,30 +1,21 @@
 package com.stackroute.chatservice.model;
 
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
-
-import java.util.Date;
 
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
-@Builder
-@Document
+@AllArgsConstructor
 public class ChatMessage {
+     private MessageType type;
+     private String content;
+     private String sender;
 
-    @Id
+     public enum MessageType {
+          CHAT,
+          JOIN,
+          LEAVE
+     }
 
-    private String id;
-    private String chatId;
-    private String senderId;
-    private String recipientID;
-    private String senderName;
-    private String recipientName;
-    private String content;
-    private Date timestamp;
-    private MessageStatus status;
 }
