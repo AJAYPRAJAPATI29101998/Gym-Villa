@@ -1,37 +1,42 @@
 package rabbitmq.domain;
 
+import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
+
+@Data
+@Setter
+@Getter
 public class UserDTO {
 
-    private String recipientId;
+    private String bookingId;
 
-    private String subject;
+    private String userEmail;
 
-    private String MessageBody;
+    private String gymOwnerEmail;
 
-    public UserDTO() {
-    }
+    private String gymId;
 
-    public String getRecipientId() {
-        return recipientId;
-    }
+    private String userName;
 
-    public void setRecipientId(String recipientId) {
-        this.recipientId = recipientId;
-    }
+    private String bookingDate;
 
-    public String getSubject() {
-        return subject;
-    }
+    private String slotInfo;
 
-    public void setSubject(String subject) {
-        this.subject = subject;
-    }
+    private String subscriptionPlan;
 
-    public String getMessageBody() {
-        return MessageBody;
-    }
 
-    public void setMessageBody(String messageBody) {
-        MessageBody = messageBody;
+    @Override
+    public String toString() {
+        return "UserDTO{" +
+                "bookingId='" + bookingId + '\'' +
+                ", userEmail='" + userEmail + '\'' +
+                ", gymOwnerEmail='" + gymOwnerEmail + '\'' +
+                ", gymId='" + gymId + '\'' +
+                ", userName='" + userName + '\'' +
+                ", bookingDate='" + bookingDate + '\'' +
+                ", slotInfo='" + slotInfo + '\'' +
+                ", subscriptionPlan='" + subscriptionPlan + '\'' +
+                '}';
     }
 }

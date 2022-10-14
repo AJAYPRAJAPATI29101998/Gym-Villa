@@ -1,10 +1,12 @@
 package com.stackroute.emailservice.service;
 
+import com.stackroute.emailservice.exception.MailNotFoundException;
 import com.stackroute.emailservice.pojo.Email;
 import org.springframework.mail.MailException;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
+
 
 @Service
 public class EmailServiceImpl implements EmailserviceI{
@@ -16,18 +18,25 @@ public class EmailServiceImpl implements EmailserviceI{
         this.javaMailSender = javaMailSender;
     }
 
+
     @Override
-    public String sendEmail(String recipientId,String subject,String messageBody) throws MailException {
+    public String sendSimpleMail(Email details) throws MailException {
+        {
+            try {
+                SimpleMailMessage message=new SimpleMailMessage();
 
-        SimpleMailMessage message=new SimpleMailMessage();
+                message.setFrom("gymvillaproduct@gmail.com");
+                message.setTo(details.getRecipientId());
+                message.setSubject(details.getSubject());
+                message.setText(details.getMessageBody());
 
-        message.setFrom("gymvillaproduct@gmail.com");
-        message.setTo(recipientId);
-        message.setSubject(subject);
-        message.setText(messageBody);
+                javaMailSender.send(message);
+                System.out.println("Mail sent");
+                return "Mail sent successfully";
 
-        javaMailSender.send(message);
-
-        return "Mail sent successfully";
+            }catch (Exception exception){
+                return "Email Id is not correct";
+            }
+        }
     }
 }

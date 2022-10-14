@@ -1,5 +1,6 @@
 package com.stackroute.emailservice.controller;
 
+import com.stackroute.emailservice.exception.MailNotFoundException;
 import com.stackroute.emailservice.pojo.Email;
 import com.stackroute.emailservice.service.EmailserviceI;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +20,7 @@ public class EmailController {
     @PostMapping("/sendEmail")
     public String sendEmail(@RequestBody Email email){
         try {
-            return this.emailserviceI.sendEmail(email.getRecipientId(),email.getSubject(),email.getMessageBody());
+            return this.emailserviceI.sendSimpleMail(email);
         }catch (MailException mailException){
             return mailException.toString();
         }
