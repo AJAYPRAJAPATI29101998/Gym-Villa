@@ -20,6 +20,7 @@ public class Consumer {
 
     @RabbitListener(queues = "booking_queue")
     public void getUserDtoFromRabbitMq(UserDTO userDTO) throws MailNotFoundException {
+        System.out.println(userDTO);
         UserDTO userDTOConsumer=new UserDTO();
         userDTOConsumer.setBookingId(userDTO.getBookingId());
         userDTOConsumer.setUserEmail(userDTO.getUserEmail());
