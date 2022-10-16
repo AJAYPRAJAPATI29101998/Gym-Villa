@@ -1,11 +1,12 @@
 package com.stackroute.gymownerservice.service;
 
 import com.stackroute.gymownerservice.model.GymOwner;
-
-import java.util.List;
+import com.stackroute.gymownerservice.model.GymSlot;
+import com.stackroute.gymownerservice.exceptions.GymIdAlreadyExistsException;
+import com.stackroute.gymownerservice.exceptions.GymNameAlreadyExistsException;
 
 public interface GymOwnerService {
-    GymOwner createGym(GymOwner Gym);
+    GymOwner createGym(GymOwner Gym) throws GymIdAlreadyExistsException, GymNameAlreadyExistsException;
 
     GymOwner getGymById(Integer gid);
 
@@ -17,7 +18,7 @@ public interface GymOwnerService {
 
     Iterable<GymOwner> findGymByCity(String city);
 
-
+    Iterable<GymSlot> findGymBySlotId(Integer slotid);
 
 
 }

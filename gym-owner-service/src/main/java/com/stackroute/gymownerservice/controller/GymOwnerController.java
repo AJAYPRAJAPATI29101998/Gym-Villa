@@ -1,6 +1,9 @@
 package com.stackroute.gymownerservice.controller;
 
+import com.stackroute.gymownerservice.exceptions.GymIdAlreadyExistsException;
+import com.stackroute.gymownerservice.exceptions.GymNameAlreadyExistsException;
 import com.stackroute.gymownerservice.model.GymOwner;
+import com.stackroute.gymownerservice.model.GymSlot;
 import com.stackroute.gymownerservice.service.GymOwnerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -14,7 +17,7 @@ public class GymOwnerController {
     private GymOwnerService gymOwnerService;
 
     @PostMapping("gym")
-    public GymOwner addGym(@RequestBody GymOwner newgymowner) {
+    public GymOwner addGym(@RequestBody GymOwner newgymowner) throws GymIdAlreadyExistsException, GymNameAlreadyExistsException {
         return this.gymOwnerService.createGym(newgymowner);
     }
 
@@ -23,9 +26,14 @@ public class GymOwnerController {
         return this.gymOwnerService.getGymById(gid);
     }
 
+    /*@GetMapping("gym/{gid}/availableSlots")
+    public List<GymSlot> getGymAvailableSlotById(@PathVariable("gid") Integer gid) {
+        return this.gymOwnerService.getGymAvailableSlotById(gid);
+    }*/
+
     @PutMapping("gym")
-    public GymOwner updateGymDetails(@PathVariable("gid") Integer gid) {
-        return this.updateGymDetails(gid);
+    public GymOwner updateGymDetails(@RequestBody GymOwner newgymowner) {
+        return this.gymOwnerService.updateGymDetails(newgymowner);
     }
 
     @DeleteMapping("gym/{gid}")
@@ -42,6 +50,11 @@ public class GymOwnerController {
     public Iterable<GymOwner> getGymsByCity(@PathVariable("city") String cityName) {
         return this.gymOwnerService.findGymByCity(cityName);
     }
+    @GetMapping("gyms/by/{slotid}")
+    public Iterable<GymSlot> getGymsBySlotId(@PathVariable("slotid") Integer slotId)
 
+    {
+        return this.gymOwnerService.findGymBySlotId(slotId);
+    }
 
 }
