@@ -2,11 +2,14 @@ package com.stackroute.emailservice.config;
 
 
 
+import com.stackroute.emailservice.exception.BookingIdNotFoundException;
 import com.stackroute.emailservice.exception.MailNotFoundException;
+import com.stackroute.emailservice.pojo.GymSubscriptions;
 import com.stackroute.emailservice.service.BookingMailService;
 
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.MailException;
 import org.springframework.stereotype.Component;
 import rabbitmq.domain.UserDTO;
 
@@ -19,17 +22,18 @@ public class Consumer {
     private BookingMailService bookingMailService;
 
     @RabbitListener(queues = "booking_queue")
-    public void getUserDtoFromRabbitMq(UserDTO userDTO) throws MailNotFoundException {
+    public void getUserDtoFromRabbitMq(UserDTO userDTO) throws MailNotFoundException, BookingIdNotFoundException, MailException {
         System.out.println(userDTO);
         UserDTO userDTOConsumer=new UserDTO();
-        userDTOConsumer.setBookingId(userDTO.getBookingId());
-        userDTOConsumer.setUserEmail(userDTO.getUserEmail());
-        userDTOConsumer.setGymOwnerEmail(userDTO.getGymOwnerEmail());
-        userDTOConsumer.setGymId(userDTO.getGymId());
+        userDTOConsumer.setBookingId(Integer.valueOf(userDTO.getBookingId()));
         userDTOConsumer.setUserName(userDTO.getUserName());
-        userDTOConsumer.setBookingDate(userDTO.getBookingDate());
-        userDTOConsumer.setSlotInfo(userDTO.getSlotInfo());
-        userDTOConsumer.setSubscriptionPlan(userDTO.getSubscriptionPlan());
+        userDTOConsumer.setUserEmail(userDTO.getUserEmail());
+        userDTOConsumer.setGymOwnerId((Integer.valueOf(userDTO.getGymOwnerId())));
+        userDTOConsumer.setSubscriptionPlan(new GymSubscriptions(userDTO.getSubscriptionPlan().getSubscriptionId(),userDTO.getSubscriptionPlan().getSubscriptionName(), userDTO.getSubscriptionPlan().getPrice()));
+        userDTOConsumer.setGymOwnerEmail(userDTO.getGymOwnerEmail());
+        userDTOConsumer.setDateTime(userDTO.getDateTime());
+        userDTOConsumer.setSlotId(userDTO.getSlotId());
+
 
         this.bookingMailService.sendEmailToUser(userDTOConsumer);
         this.bookingMailService.sendEmailToGymOwner(userDTOConsumer);
