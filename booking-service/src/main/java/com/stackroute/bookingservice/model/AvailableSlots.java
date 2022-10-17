@@ -1,4 +1,4 @@
-package com.stackroute.bookingservice.dto;
+package com.stackroute.bookingservice.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -10,6 +10,6 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class AvailableSlots {
-    private List<Slot> slots;
-    private List<GymSubscriptions> gymSubscriptions;
+    private List<GymSlot> slots;
+    private List<GymSubscription> gymSubscriptions;
 }

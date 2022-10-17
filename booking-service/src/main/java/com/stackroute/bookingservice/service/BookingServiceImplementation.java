@@ -1,7 +1,7 @@
 package com.stackroute.bookingservice.service;
 
 import com.stackroute.bookingservice.dao.BookingRepository;
-import com.stackroute.bookingservice.dto.Booking;
+import com.stackroute.bookingservice.model.Booking;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

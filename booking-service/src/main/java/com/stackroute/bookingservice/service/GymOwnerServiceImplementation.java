@@ -1,10 +1,10 @@
 package com.stackroute.bookingservice.service;
 
 import com.stackroute.bookingservice.dao.GymOwnerRepository;
-import com.stackroute.bookingservice.dto.GymOwner;
-import com.stackroute.bookingservice.dto.Status;
 import com.stackroute.bookingservice.exceptions.DataNotPresentException;
 import com.stackroute.bookingservice.exceptions.SameEntryException;
+import com.stackroute.bookingservice.model.GymOwner;
+import com.stackroute.bookingservice.model.SlotStatus;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,7 +20,7 @@ public class GymOwnerServiceImplementation implements GymOwnerService {
 
     @Override
     public GymOwner addGymData(GymOwner gymOwner) throws SameEntryException {
-        Optional<GymOwner> owner = this.gymOwnerRepository.findById(gymOwner.getGymOwnerId());
+        Optional<GymOwner> owner = this.gymOwnerRepository.findById(gymOwner.getGymId());
         if(owner.isPresent()){
             throw new SameEntryException("Gym data is already present please try to update or use new Id");
         }
@@ -42,7 +42,7 @@ public class GymOwnerServiceImplementation implements GymOwnerService {
         if(owner.isEmpty()){
             throw new DataNotPresentException("Gym not available by ID :-" +gymOwnerID);
         }
-        owner.get().getSlots().stream().filter(e->e.getSlotId()==slotId).forEach(e->e.setSlotStatus(Status.BOOKED));
+        owner.get().getGymSlot().stream().filter(e->e.getSlotId()==slotId).forEach(e->e.setSlotStatus(SlotStatus.BOOKED));
         this.gymOwnerRepository.save(owner.get());
     }
 
@@ -50,8 +50,8 @@ public class GymOwnerServiceImplementation implements GymOwnerService {
     public GymOwner getSlotsByGymId(int id) throws DataNotPresentException{
         Optional<GymOwner> owner = this.gymOwnerRepository.findById(id);
         if(owner.isEmpty()){throw new DataNotPresentException("\"Gym not available by ID :-" +id);}
-        if(owner.get().getSlots().isEmpty()){throw new DataNotPresentException("No Slot Available for gymId:-" +id);}
-        owner.get().setSlots(owner.get().getSlots().stream().filter(e->e.getSlotStatus()==Status.AVAILABLE).collect(Collectors.toList()));
+        if(owner.get().getGymSlot().isEmpty()){throw new DataNotPresentException("No Slot Available for gymId:-" +id);}
+        owner.get().setGymSlot(owner.get().getGymSlot().stream().filter(e->e.getSlotStatus()== SlotStatus.AVAILABLE).collect(Collectors.toList()));
         return owner.get();
     }
 

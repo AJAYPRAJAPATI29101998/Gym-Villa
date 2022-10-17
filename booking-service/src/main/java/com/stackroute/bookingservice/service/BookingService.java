@@ -1,6 +1,6 @@
 package com.stackroute.bookingservice.service;
 
-import com.stackroute.bookingservice.dto.Booking;
+import com.stackroute.bookingservice.model.Booking;
 
 import java.sql.SQLException;
 import java.util.List;
