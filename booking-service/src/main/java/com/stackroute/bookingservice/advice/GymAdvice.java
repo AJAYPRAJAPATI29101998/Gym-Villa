@@ -2,6 +2,7 @@ package com.stackroute.bookingservice.advice;
 
 import com.stackroute.bookingservice.exceptions.DataNotPresentException;
 import com.stackroute.bookingservice.exceptions.SameEntryException;
+import com.stackroute.bookingservice.exceptions.SlotAlreadyBookedException;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -38,6 +39,12 @@ public class GymAdvice {
             errors.put(fieldName, errorMessage);
         });
         return errors;
+    }
+
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ExceptionHandler(SlotAlreadyBookedException.class)
+    public String sameSlotException(SlotAlreadyBookedException slotAlreadyBookedException){
+        return slotAlreadyBookedException.getMessage();
     }
 
 }
