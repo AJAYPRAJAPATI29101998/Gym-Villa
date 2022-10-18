@@ -4,5 +4,5 @@ public enum Subscription {
     monthly,
     quarterly,
     semiannually,
-    annually;
+    annually
 }

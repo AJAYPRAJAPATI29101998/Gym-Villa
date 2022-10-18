@@ -1,24 +1,24 @@
 package com.stackroute.gymownerservice.service;
 
+import com.stackroute.gymownerservice.exceptions.GymIdNotAvailable;
+import com.stackroute.gymownerservice.exceptions.GymNameNotAvailable;
 import com.stackroute.gymownerservice.model.GymOwner;
-import com.stackroute.gymownerservice.model.GymSlot;
 import com.stackroute.gymownerservice.exceptions.GymIdAlreadyExistsException;
 import com.stackroute.gymownerservice.exceptions.GymNameAlreadyExistsException;
 
 public interface GymOwnerService {
     GymOwner createGym(GymOwner Gym) throws GymIdAlreadyExistsException, GymNameAlreadyExistsException;
 
-    GymOwner getGymById(Integer gid);
+    GymOwner getGymById(Integer gid) throws GymIdNotAvailable;
 
-    GymOwner updateGymDetails(GymOwner Gym);
+    GymOwner getGymByName(String name) throws GymNameNotAvailable;
 
-    String deleteGym(Integer gid );
+    GymOwner updateGymDetails(GymOwner Gym) throws GymIdNotAvailable;
+
+    String deleteGym(Integer gid ) throws GymIdNotAvailable;
 
     Iterable<GymOwner> getAllGyms();
 
     Iterable<GymOwner> findGymByCity(String city);
-
-    Iterable<GymSlot> findGymBySlotId(Integer slotid);
-
 
 }
