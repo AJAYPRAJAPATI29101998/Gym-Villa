@@ -26,10 +26,14 @@ public class BookingMailServiceImpl implements BookingMailService{
             throw new BookingIdNotFoundException("Booking ID not present");
         detailsOfGymOwner.setSubject(userDTO.getBookingId().toString());
         detailsOfGymOwner.setMessageBody("\nGym Slot Booking Details :"+
+                "\nSlot ID : "+userDTO.getSlotId()+
                 "\nUser Name : "+userDTO.getUserName()+
                 "\nUser Email : "+userDTO.getUserEmail()+
                 "\nBooking Date : "+userDTO.getDateTime()+
-                "\nSubscription Plan Information : "+userDTO.getSubscriptionPlan());
+                "\nSubscription Plan Information : "+
+                "\nSubscription ID : "+userDTO.getSubscriptionPlan().getSubscriptionId()+
+                "\nSubscription Name : "+userDTO.getSubscriptionPlan().getSubscriptionName()+
+                "\nSubscription Price : "+userDTO.getSubscriptionPlan().getPrice());
 
         return emailserviceI.sendSimpleMail(detailsOfGymOwner);
 
@@ -45,9 +49,13 @@ public class BookingMailServiceImpl implements BookingMailService{
             throw new BookingIdNotFoundException("Booking ID not present");
         detailsOfUser.setSubject(userDTO.getBookingId().toString());
         detailsOfUser.setMessageBody("\nBooking Details :"+
+                "\nSlot ID : "+userDTO.getSlotId()+
                 "\nGym ID : "+userDTO.getGymOwnerId()+
                 "\nBooking Date : "+userDTO.getDateTime()+
-                "\nSubscription Plan Information : "+userDTO.getSubscriptionPlan());
+                "\nSubscription Plan Information : "+
+                "\nSubscription ID : "+userDTO.getSubscriptionPlan().getSubscriptionId()+
+                "\nSubscription Name : "+userDTO.getSubscriptionPlan().getSubscriptionName()+
+                "\nSubscription Price : "+userDTO.getSubscriptionPlan().getPrice());
 
         return emailserviceI.sendSimpleMail(detailsOfUser);
     }

@@ -3,9 +3,11 @@ package com.stackroute.emailservice.pojo;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 @Data
 @NoArgsConstructor
+@ToString
 public class GymSubscriptions {
     private int subscriptionId;
     private String subscriptionName;

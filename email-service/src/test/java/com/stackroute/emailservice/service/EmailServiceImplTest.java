@@ -27,9 +27,7 @@ class EmailServiceImplTest {
     @MockBean
     private JavaMailSender javaMailSender;
 
-    /**
-     * Method under test: {@link EmailServiceImpl#sendSimpleMail(Email)}
-     */
+
     @Test
     void testSendSimpleMail() throws MailException {
         doNothing().when(javaMailSender).send((SimpleMailMessage) any());
@@ -42,9 +40,7 @@ class EmailServiceImplTest {
         verify(javaMailSender).send((SimpleMailMessage) any());
     }
 
-    /**
-     * Method under test: {@link EmailServiceImpl#sendSimpleMail(Email)}
-     */
+
     @Test
     void testSendSimpleMail2() throws MailException {
         doNothing().when(javaMailSender).send((SimpleMailMessage) any());
