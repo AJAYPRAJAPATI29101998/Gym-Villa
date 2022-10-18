@@ -2,8 +2,11 @@ package com.stackroute.user.authentication.service;
 
 
 
+import com.stackroute.user.authentication.entity.Role;
 import com.stackroute.user.authentication.entity.UserAuthentication;
+import com.stackroute.user.authentication.exceptions.UserAlreadyExist;
 import com.stackroute.user.authentication.repository.UserAuthenticationRepository;
+import com.stackroute.user.authentication.utill.JwtUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.User;
@@ -14,6 +17,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 
 @Service
@@ -22,27 +26,51 @@ public class JwtUserDetailsService implements UserDetailsService,UserAuthenticat
     @Autowired
     UserAuthenticationRepository userAuthenticationRepository;
 
+    @Autowired
+    JwtUtil jwtUtil;
+
 
 
     @Override
     public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
-        UserAuthentication existinguserAuthentication1=userAuthenticationRepository.findById(s)
-                .orElseThrow(()->new UsernameNotFoundException("user not found"));
-        return new User(existinguserAuthentication1.getEmailId(),existinguserAuthentication1.getPassword(),new ArrayList<>());
+       UserAuthentication existinguserAuthentication1= userAuthenticationRepository.findById(s).orElse(null);
+
+        try {
+
+
+            return new User(existinguserAuthentication1.getEmailId(),existinguserAuthentication1.getPassword(),new ArrayList<>());
+
+        }
+        catch (Exception e)
+        {
+            throw new UsernameNotFoundException("user not found");
+        }
     }
 
     @Override
-    public UserAuthentication addUser(UserAuthentication user) {
+    public UserAuthentication addUser(UserAuthentication user) throws UserAlreadyExist {
+        Optional<UserAuthentication> userAuthentication=userAuthenticationRepository.findById(user.getEmailId());
+        if(userAuthentication.isPresent())
+        {
+            throw new UserAlreadyExist();
+        }
 
         log.info("adding the new email{} into the Database", user.getEmailId());
         return userAuthenticationRepository.save(user);
 
     }
 
-    @Override
-    public List<UserAuthentication> getAllUsers() {
 
-        log.info("getting the users from the database");
-        return userAuthenticationRepository.findAll();
+
+    @Override
+    public Role getRole(String emailId) {
+        UserAuthentication userAuthentication=userAuthenticationRepository.findById(emailId).orElseThrow(()->new UsernameNotFoundException(""));
+        System.out.println(userAuthentication.getRole()+"printing in swervice");
+        return userAuthentication.getRole();
     }
+
+
+
+
+
 }

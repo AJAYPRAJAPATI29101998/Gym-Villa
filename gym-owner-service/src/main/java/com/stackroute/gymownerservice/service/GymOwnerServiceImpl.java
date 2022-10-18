@@ -1,6 +1,7 @@
 package com.stackroute.gymownerservice.service;
 import com.stackroute.gymownerservice.Config.Producer;
-import com.stackroute.gymownerservice.model.GymSlot;
+import com.stackroute.gymownerservice.exceptions.GymIdNotAvailable;
+import com.stackroute.gymownerservice.exceptions.GymNameNotAvailable;
 import com.stackroute.gymownerservice.repository.GymSlotRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -8,6 +9,8 @@ import com.stackroute.gymownerservice.model.GymOwner;
 import com.stackroute.gymownerservice.repository.GymOwnerRepository;
 import com.stackroute.gymownerservice.exceptions.GymIdAlreadyExistsException;
 import com.stackroute.gymownerservice.exceptions.GymNameAlreadyExistsException;
+import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
 
 
 @Service
@@ -40,21 +43,47 @@ public class GymOwnerServiceImpl  implements GymOwnerService{
     }
 
     @Override
-    public GymOwner getGymById(Integer gid)
+    public GymOwner getGymById(Integer gid) throws GymIdNotAvailable
     {
+        if (this.gymownerRepo.findById(gid).isEmpty())
+        {
+            throw new GymIdNotAvailable(gid);
+        }
         return this.gymownerRepo.findById(gid).get();
     }
 
-
     @Override
-    public GymOwner updateGymDetails(GymOwner updateGym) {
-        return this.gymownerRepo.save(updateGym);
+    public GymOwner getGymByName(String name) throws GymNameNotAvailable
+    {
+        GymOwner gymOwner = this.gymownerRepo.findGymByGymName(name);
+        if (gymOwner == null)
+        {
+            throw new GymNameNotAvailable(name);
+        }
+        return gymOwner;
     }
 
     @Override
-    public String deleteGym(Integer gid) {
+    public GymOwner updateGymDetails(GymOwner updateGym) throws GymIdNotAvailable
+    {
+        if(this.gymownerRepo.findById(updateGym.getGymId()).isEmpty())
+        {
+            throw new GymIdNotAvailable(updateGym.getGymId());
+        }
+        GymOwner newGymOwner = this.gymownerRepo.save(updateGym);
+        producer.sendMessageToRabbitMq(newGymOwner);
+        return newGymOwner;
+    }
+
+    @Override
+    public String deleteGym(Integer gid) throws GymIdNotAvailable
+    {
+        if (this.gymownerRepo.findById(gid).isEmpty())
+        {
+            throw new GymIdNotAvailable(gid);
+        }
          this.gymownerRepo.deleteById(gid);
-         return "Gym deleted";
+         return "Gym Owner deleted";
     }
 
     @Override
@@ -66,11 +95,5 @@ public class GymOwnerServiceImpl  implements GymOwnerService{
     public Iterable<GymOwner> findGymByCity(String city) {
         return this.gymownerRepo.findGymByCity(city);
     }
-
-    @Override
-    public Iterable<GymSlot> findGymBySlotId(Integer slotid) {
-        return this.gymslotRepo.findGymBySlotId(slotid);
-    }
-
 
 }

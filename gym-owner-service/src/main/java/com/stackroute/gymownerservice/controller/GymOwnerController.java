@@ -1,14 +1,13 @@
 package com.stackroute.gymownerservice.controller;
 
 import com.stackroute.gymownerservice.exceptions.GymIdAlreadyExistsException;
+import com.stackroute.gymownerservice.exceptions.GymIdNotAvailable;
 import com.stackroute.gymownerservice.exceptions.GymNameAlreadyExistsException;
+import com.stackroute.gymownerservice.exceptions.GymNameNotAvailable;
 import com.stackroute.gymownerservice.model.GymOwner;
-import com.stackroute.gymownerservice.model.GymSlot;
 import com.stackroute.gymownerservice.service.GymOwnerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 public class GymOwnerController {
@@ -22,22 +21,22 @@ public class GymOwnerController {
     }
 
     @GetMapping("gym/{gid}")
-    public GymOwner getGymById(@PathVariable("gid") Integer gid) {
+    public GymOwner getGymById(@PathVariable("gid") Integer gid) throws GymIdNotAvailable {
         return this.gymOwnerService.getGymById(gid);
     }
 
-    /*@GetMapping("gym/{gid}/availableSlots")
-    public List<GymSlot> getGymAvailableSlotById(@PathVariable("gid") Integer gid) {
-        return this.gymOwnerService.getGymAvailableSlotById(gid);
-    }*/
+    @GetMapping("gymname/{gymName}")
+    public GymOwner getGymByName(@PathVariable("gymName") String gName) throws GymNameNotAvailable {
+        return this.gymOwnerService.getGymByName(gName);
+    }
 
     @PutMapping("gym")
-    public GymOwner updateGymDetails(@RequestBody GymOwner newgymowner) {
+    public GymOwner updateGymDetails(@RequestBody GymOwner newgymowner) throws GymIdNotAvailable {
         return this.gymOwnerService.updateGymDetails(newgymowner);
     }
 
     @DeleteMapping("gym/{gid}")
-    public String deleteGym(@PathVariable("gid") Integer gid) {
+    public String deleteGym(@PathVariable("gid") Integer gid) throws GymIdNotAvailable {
         return this.gymOwnerService.deleteGym(gid);
     }
 
@@ -46,15 +45,9 @@ public class GymOwnerController {
         return this.gymOwnerService.getAllGyms();
     }
 
-    @GetMapping("gyms/by/{city}")
+    @GetMapping("gyms/city/{city}")
     public Iterable<GymOwner> getGymsByCity(@PathVariable("city") String cityName) {
         return this.gymOwnerService.findGymByCity(cityName);
-    }
-    @GetMapping("gyms/by/{slotid}")
-    public Iterable<GymSlot> getGymsBySlotId(@PathVariable("slotid") Integer slotId)
-
-    {
-        return this.gymOwnerService.findGymBySlotId(slotId);
     }
 
 }

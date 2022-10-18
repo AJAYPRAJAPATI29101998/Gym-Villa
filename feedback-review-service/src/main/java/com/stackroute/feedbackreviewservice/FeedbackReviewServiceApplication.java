@@ -11,3 +11,4 @@ public class FeedbackReviewServiceApplication {
 	}
 
 }
+//@ComponentScan(basePackages = {"com.stackroute.feedbackreviewservice.service.ReviewService"})
