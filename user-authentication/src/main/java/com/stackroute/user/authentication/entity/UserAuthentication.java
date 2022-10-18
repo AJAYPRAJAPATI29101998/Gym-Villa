@@ -2,6 +2,7 @@ package com.stackroute.user.authentication.entity;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.springframework.validation.annotation.Validated;
 
 import javax.persistence.Entity;
@@ -13,6 +14,7 @@ import javax.validation.constraints.Pattern;
 @Entity
 @Data
 @Validated
+@NoArgsConstructor
 public class UserAuthentication {
     @Id
     @JsonProperty(value = "emailId")
