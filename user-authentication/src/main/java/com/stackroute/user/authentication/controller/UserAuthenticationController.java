@@ -94,7 +94,7 @@ public class UserAuthenticationController {
                         .getBody()
                         .getSubject();
 
-                UserAuthentication userAuthentication=new UserAuthentication();
+              //  UserAuthentication userAuthentication=new UserAuthentication();
                   rolevalue= userDetailsService.getRole(user);
 
 

@@ -21,24 +21,6 @@ public class UserAuthenticationApplication {
 		SpringApplication.run(UserAuthenticationApplication.class, args);
 	}
 
-//	@Autowired
-//	UserAuthenticationService userAuthenticationService;
-//	@Override
-//	public void run(String... args) throws Exception {
-//		userAuthenticationService.addUser(new UserAuthentication("abc@gmail.com","abc"));
-//		userAuthenticationService.addUser(new UserAuthentication("abcd@gmail.com","bbb"));
-//			userAuthenticationService.addUser(new UserAuthentication("abcde@gmail.com","ccc"));
-//
-//	}
 
-//	@Bean
-//	CommandLineRunner run(UserAuthenticationService userAuthenticationService)
-//	{
-//		return args -> {
-//		userAuthenticationService.addUser(new UserAuthentication("abc@gmail.com","abc"));
-//			userAuthenticationService.addUser(new UserAuthentication("abcd@gmail.com","bbb"));
-//			userAuthenticationService.addUser(new UserAuthentication("abcde@gmail.com","ccc"));
-//		};
-//	}
 
 }

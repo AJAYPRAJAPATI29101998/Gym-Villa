@@ -26,4 +26,6 @@ public class UserAuthentication {
     private Role role;
 
 
+    public UserAuthentication(String user, String s, String s1, String user1) {
+    }
 }
