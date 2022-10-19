@@ -5,7 +5,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 
 @ResponseStatus(value = HttpStatus.NOT_FOUND,reason = "EmailId and password is not matched")
 public class UsernameNotFoundException extends Throwable{
-    public UsernameNotFoundException(Exception emailid_and_password_not_matched){
+    public UsernameNotFoundException(String emailid_and_password_not_matched){
 
     }
 

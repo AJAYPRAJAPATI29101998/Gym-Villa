@@ -51,16 +51,6 @@ public class UserAuthenticationController {
     }
 
 
-
-
-
-//    @PostMapping("/authenticate")
-//    private String authenticate( @RequestBody UserAuthentication userAuthentication) throws UsernameNotFoundException {
-//        authenticationManager.authenticate(
-//                new UsernamePasswordAuthenticationToken(userAuthentication.getEmailId(), userAuthentication.getPassword())
-//        );
-//        return jwtTokenUtil.generateToken(userAuthentication.getEmailId(),userAuthentication.getPassword());
- //   }
         @PostMapping("/authenticate")
         private String authenticate (@RequestBody UserAuthentication userAuthentication) throws
         UsernameNotFoundException {
@@ -69,7 +59,7 @@ public class UserAuthenticationController {
                         new UsernamePasswordAuthenticationToken(userAuthentication.getEmailId(), userAuthentication.getPassword())
                 );
             } catch (Exception ex) {
-                throw new UsernameNotFoundException(ex);
+                throw new UsernameNotFoundException("");
             }
             return jwtTokenUtil.generateToken(userAuthentication.getEmailId(),userAuthentication.getPassword());
         }
