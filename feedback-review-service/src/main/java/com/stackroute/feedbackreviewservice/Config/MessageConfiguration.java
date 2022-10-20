@@ -27,7 +27,7 @@ public class MessageConfiguration {
 
     @Bean
     Binding bindingUser(Queue regisQueue, DirectExchange exchange){
-        return BindingBuilder.bind(registerQueue()).to(exchange).with("booking_feedback_routingkey\"");
+        return BindingBuilder.bind(registerQueue()).to(exchange).with("booking_feedback_routingkey");
     }
 
 }

@@ -29,9 +29,9 @@ public class ReviewController {
         return reviewService.saveReview(review);
     }
 
-    @GetMapping("/getByBookingId/{BookingID}")
+    @GetMapping("/getByBookingId/{id}")
 
-    public List<Review> getReviewById(@PathVariable Integer id){
+    public Review getReviewById(@PathVariable Integer id){
         return reviewService.getReviewByBookingId(id);
     }
 }
