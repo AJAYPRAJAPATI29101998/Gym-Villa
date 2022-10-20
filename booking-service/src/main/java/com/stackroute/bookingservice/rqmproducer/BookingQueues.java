@@ -13,7 +13,7 @@ public class BookingQueue {
 
     @Bean
     public Queue queue(){
-        return new Queue("booking_queue");
+        return new Queue("email_queue");
     }
     @Bean
     public TopicExchange topicExchange(){
@@ -35,6 +35,40 @@ public class BookingQueue {
         RabbitTemplate template = new RabbitTemplate(connectionFactory);
         template.setMessageConverter(messageConverter());
         return template;
+    }
+
+
+
+    public static final String QUEUE_NAME = "feedback_queue";
+    public static final String TOPIC_EXCHNAGE = "booking_feedback_information_slots";
+    public static final String ROUTING_KEY = "booking_feedback_routingkey";
+
+
+    @Bean
+    public Queue queue1() {
+        return new Queue(QUEUE_NAME);
+    }
+
+    @Bean
+    public TopicExchange topicExchange1() {
+        return new TopicExchange(TOPIC_EXCHNAGE);
+    }
+
+    @Bean
+    public Binding binding1(Queue queue1, TopicExchange topicExchange1) {
+        return BindingBuilder.bind(queue1).to(topicExchange1).with(ROUTING_KEY);
+    }
+
+    @Bean
+    public MessageConverter messageConverter1() {
+        return new Jackson2JsonMessageConverter();
+    }
+
+    @Bean
+    public AmqpTemplate template1(ConnectionFactory connectionFactory) {
+        RabbitTemplate template1 = new RabbitTemplate(connectionFactory);
+        template1.setMessageConverter(messageConverter1());
+        return template1;
     }
 
 
