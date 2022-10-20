@@ -2,9 +2,10 @@ package com.stackroute.paymentservice.service;
 
 import com.paypal.api.payments.Payment;
 import com.paypal.base.rest.PayPalRESTException;
+import com.stackroute.paymentservice.entity.Order;
 
 public interface PaypalService {
-    public Payment createPayment(Double total, String currency, String method,
-                                 String intent, String description, String cancelUrl, String successUrl) throws PayPalRESTException, NoSuchMethodException, NoSuchFieldException;
-    public Payment executePayment(String paymentId, String payerId) throws PayPalRESTException;
+    Payment createPayment(Order order, String cancelUrl, String successUrl)throws PayPalRESTException;
+    Payment executePayment(String paymentId,String payerId) throws PayPalRESTException;
+
 }
