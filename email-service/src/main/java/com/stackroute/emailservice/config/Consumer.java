@@ -4,7 +4,7 @@ package com.stackroute.emailservice.config;
 
 import com.stackroute.emailservice.exception.BookingIdNotFoundException;
 import com.stackroute.emailservice.exception.MailNotFoundException;
-import com.stackroute.emailservice.pojo.GymSubscriptions;
+import com.stackroute.emailservice.pojo.GymSubscription;
 import com.stackroute.emailservice.service.BookingMailService;
 
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
@@ -21,19 +21,19 @@ public class Consumer {
     @Autowired
     private BookingMailService bookingMailService;
 
-    @RabbitListener(queues = "booking_queue")
+    @RabbitListener(queues = "email_queue")
     public void getUserDtoFromRabbitMq(UserDTO userDTO) throws MailNotFoundException, BookingIdNotFoundException, MailException {
         System.out.println(userDTO);
+
         UserDTO userDTOConsumer=new UserDTO();
-        userDTOConsumer.setBookingId(Integer.valueOf(userDTO.getBookingId()));
+        userDTOConsumer.setBookingId(userDTO.getBookingId());
         userDTOConsumer.setUserName(userDTO.getUserName());
         userDTOConsumer.setUserEmail(userDTO.getUserEmail());
-        userDTOConsumer.setGymOwnerId((Integer.valueOf(userDTO.getGymOwnerId())));
-        userDTOConsumer.setSubscriptionPlan(new GymSubscriptions(userDTO.getSubscriptionPlan().getSubscriptionId(),userDTO.getSubscriptionPlan().getSubscriptionName(), userDTO.getSubscriptionPlan().getPrice()));
+        userDTOConsumer.setCreatedAt(userDTO.getCreatedAt());
         userDTOConsumer.setGymOwnerEmail(userDTO.getGymOwnerEmail());
-        userDTOConsumer.setDateTime(userDTO.getDateTime());
         userDTOConsumer.setSlotId(userDTO.getSlotId());
-
+        userDTOConsumer.setGymSubscription(new GymSubscription(userDTO.getGymSubscription().getSubscriptionType(), userDTO.getGymSubscription().getSubscriptionCost()));
+        userDTOConsumer.setGymId(userDTO.getGymId());
 
         this.bookingMailService.sendEmailToUser(userDTOConsumer);
         this.bookingMailService.sendEmailToGymOwner(userDTOConsumer);

@@ -29,11 +29,10 @@ public class BookingMailServiceImpl implements BookingMailService{
                 "\nSlot ID : "+userDTO.getSlotId()+
                 "\nUser Name : "+userDTO.getUserName()+
                 "\nUser Email : "+userDTO.getUserEmail()+
-                "\nBooking Date : "+userDTO.getDateTime()+
+                "\nBooking Date : "+userDTO.getCreatedAt()+
                 "\nSubscription Plan Information : "+
-                "\nSubscription ID : "+userDTO.getSubscriptionPlan().getSubscriptionId()+
-                "\nSubscription Name : "+userDTO.getSubscriptionPlan().getSubscriptionName()+
-                "\nSubscription Price : "+userDTO.getSubscriptionPlan().getPrice());
+                "\nSubscription Name : "+userDTO.getGymSubscription().getSubscriptionType()+
+                "\nSubscription Price : "+userDTO.getGymSubscription().getSubscriptionCost());
 
         return emailserviceI.sendSimpleMail(detailsOfGymOwner);
 
@@ -50,12 +49,11 @@ public class BookingMailServiceImpl implements BookingMailService{
         detailsOfUser.setSubject(userDTO.getBookingId().toString());
         detailsOfUser.setMessageBody("\nBooking Details :"+
                 "\nSlot ID : "+userDTO.getSlotId()+
-                "\nGym ID : "+userDTO.getGymOwnerId()+
-                "\nBooking Date : "+userDTO.getDateTime()+
+                "\nGym ID : "+userDTO.getGymId()+
+                "\nBooking Date : "+userDTO.getCreatedAt()+
                 "\nSubscription Plan Information : "+
-                "\nSubscription ID : "+userDTO.getSubscriptionPlan().getSubscriptionId()+
-                "\nSubscription Name : "+userDTO.getSubscriptionPlan().getSubscriptionName()+
-                "\nSubscription Price : "+userDTO.getSubscriptionPlan().getPrice());
+                "\nSubscription Name : "+userDTO.getGymSubscription().getSubscriptionType()+
+                "\nSubscription Price : "+userDTO.getGymSubscription().getSubscriptionCost());
 
         return emailserviceI.sendSimpleMail(detailsOfUser);
     }

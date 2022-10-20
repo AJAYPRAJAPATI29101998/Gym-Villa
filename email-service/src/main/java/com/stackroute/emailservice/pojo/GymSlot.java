@@ -1,4 +1,4 @@
-package com.stackroute.bookingservice.model;
+package com.stackroute.emailservice.pojo;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
