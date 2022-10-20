@@ -7,7 +7,6 @@ import com.paypal.base.rest.PayPalRESTException;
 import com.stackroute.paymentservice.entity.Order;
 import com.stackroute.paymentservice.service.PaypalService;
 import com.stackroute.paymentservice.service.PaypalServiceImpl;
-import io.swagger.v3.oas.annotations.parameters.RequestBody;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,100 +17,52 @@ import org.springframework.web.bind.annotation.*;
 public class PaypalController {
 
     @Autowired
-    private PaypalService paypalService;
-    private PaypalServiceImpl paypalServiceimpl;
-
-    private Order order;
-
-    public static final String successUrl = "pay/success";
-    public static final String cancelUrl = "pay/cancel";
+    PaypalServiceImpl service;
 
 
-    @GetMapping("/home")
+    public static final String SUCCESS_URL = "pay/success";
+    public static final String CANCEL_URL = "pay/cancel";
 
 
-    public String home(){
-        return "Welcome to payment gateway";
-    }
+
+
 
     @PostMapping("/pay")
-
-
-    public String payment(@RequestBody Order theOrder) throws PayPalRESTException {
+    public String payment(@RequestBody Order order) {
         try {
-
-            Payment thePayment = paypalService.createPayment(theOrder.getPrice(), theOrder.getCurrency(),
-                    theOrder.getMethod(), theOrder.getIntent(), theOrder.getDescription(),
-                    "http://localhost:8989/v2/checkout/orders/"+cancelUrl,
-                    "http://localhost:8989/v2/checkout/orders/"+successUrl);
-            System.out.println(thePayment);
-            for (Links links : thePayment.getLinks()) {
-                if (links.getRel().equals("approval_url")) {
-//                    System.out.println(links.getRel());
-                    return "redirect:" + links.getHref();
+            Payment payment = service.createPayment(order, "http://localhost:8887/" + CANCEL_URL,
+                    "http://localhost:8887/" + SUCCESS_URL);
+            for(Links link:payment.getLinks()) {
+                if(link.getRel().equals("approval_url")) {
+                    return "redirect:"+link.getHref();
                 }
             }
-        } catch (PayPalRESTException payPalRESTException) {
-            payPalRESTException.printStackTrace();
-        } catch (NoSuchMethodException e) {
-            throw new RuntimeException(e);
-        } catch (NoSuchFieldException e) {
-            throw new RuntimeException(e);
+
+        } catch (PayPalRESTException e) {
+
+            e.printStackTrace();
         }
         return "redirect:/";
     }
 
-
-    @GetMapping(value = cancelUrl)
-
+    @GetMapping(value = CANCEL_URL)
     public String cancelPay() {
         return "cancel";
     }
 
-//    @GetMapping(value = successUrl)
-//    public String successPay() {
-//        return "success";
-//    }
-
-    @GetMapping(value = successUrl)
-
+    @GetMapping(value = SUCCESS_URL)
     public String successPay(@RequestParam("paymentId") String paymentId, @RequestParam("PayerID") String payerId) {
         try {
-            Payment payment = paypalService.executePayment(paymentId, payerId);
+            Payment payment = service.executePayment(paymentId, payerId);
             System.out.println(payment.toJSON());
             if (payment.getState().equals("approved")) {
-//                  return "SUCESS";
-//                "<!DOCTYPE html>\n" +
-//                        "<style>\n" +
-//                        "div {\n" +
-//                        "height: 200px;\n" +
-//                        "width: 400px;\n" +
-//                        "background: white;\n" +
-//                        "\n" +
-//                        "position: fixed;\n" +
-//                        "top: 50%;\n" +
-//                        "left: 50%;\n" +
-//                        "margin-top: -100px;\n" +
-//                        "margin-left: -200px;\n" +
-//                        "}\n" +
-//                        "</style>\n" +
-//                        "<html>\n" +
-//                        "<head>\n" +
-//                        "    <meta charset=\"UTF-8\" />\n" +
-//                        "    <title>Payment Status</title>\n" +
-//                        "</head>\n" +
-//                        "<body>\n" +
-//                        "\n" +
-//                        "<div>\n" +
-//                        "<h1 style=\"background-color:powderblue;\"><center>Payment Success</center> </h1>\n" +
-//                        "</div>\n" +
-//                        "</body>\n" +
-//                        "</html>";
+                return "success";
             }
-        } catch (Exception e) {
+        } catch (PayPalRESTException e) {
             System.out.println(e.getMessage());
         }
         return "redirect:/";
     }
+
 
 }

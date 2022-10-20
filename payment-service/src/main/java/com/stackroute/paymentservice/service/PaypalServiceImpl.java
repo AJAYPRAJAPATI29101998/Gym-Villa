@@ -4,7 +4,7 @@ import com.google.gson.annotations.SerializedName;
 import com.paypal.api.payments.*;
 import com.paypal.base.rest.APIContext;
 import com.paypal.base.rest.PayPalRESTException;
-import com.stackroute.paymentservice.entity.Method;
+//import com.stackroute.paymentservice.entity.Method;
 import com.stackroute.paymentservice.entity.Order;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,46 +23,41 @@ public class PaypalServiceImpl implements PaypalService{
     private APIContext apiContext;
 
 
-    @Override
-    public Payment createPayment(Double total, String currency, String method,
-                                 String intent, String description, String cancelUrl, String successUrl) throws PayPalRESTException, NoSuchMethodException, NoSuchFieldException {
-        Amount theAmount = new Amount();
-        theAmount.setCurrency(currency);
-        total = new BigDecimal(total).setScale(2, RoundingMode.HALF_UP).doubleValue();
-        theAmount.setTotal(String.format("%.2f", total));
+    public Payment createPayment(Order order, String cancelUrl, String successUrl) throws PayPalRESTException{
+        Amount amount = new Amount();
+        amount.setCurrency(order.getCurrency());
+        Double total=order.getPrice();
+        total	= new BigDecimal(total).setScale(2, RoundingMode.HALF_UP).doubleValue();
+        amount.setTotal(String.format("%.2f", total));
 
         Transaction transaction = new Transaction();
-        transaction.setDescription(description);
-        transaction.setAmount(theAmount);
+        transaction.setDescription(order.getDescription());
+        transaction.setAmount(amount);
 
-        List<Transaction> theTransactions = new ArrayList<>();
-        theTransactions.add(transaction);
+        List<Transaction> transactions = new ArrayList<>();
+        transactions.add(transaction);
 
+        Payer payer = new Payer();
+        payer.setPaymentMethod(order.getMethod());
 
-        Payer thePayer = new Payer();
-        thePayer.setPaymentMethod(method.toString());
+        Payment payment = new Payment();
+        payment.setIntent(order.getIntent());
+        payment.setPayer(payer);
+        payment.setTransactions(transactions);
+        RedirectUrls redirectUrls = new RedirectUrls();
+        redirectUrls.setCancelUrl(cancelUrl);
+        redirectUrls.setReturnUrl(successUrl);
+        payment.setRedirectUrls(redirectUrls);
 
-        Payment thePayment = new Payment();
-        thePayment.setIntent(intent);
-        thePayment.setTransactions(theTransactions);
-        thePayment.setPayer(thePayer);
-
-        RedirectUrls theRedirectUrls = new RedirectUrls();
-        theRedirectUrls.setCancelUrl(cancelUrl);
-        theRedirectUrls.setReturnUrl(successUrl);
-        thePayment.setRedirectUrls(theRedirectUrls);
-        return thePayment.create(apiContext);
+        return payment.create(apiContext);
     }
 
-    @Override
-    public Payment executePayment(String paymentId, String payerId) throws PayPalRESTException {
-
-        Payment thePayment = new Payment();
-        thePayment.setId(paymentId);
-
-        PaymentExecution thPaymentExecution = new PaymentExecution();
-        thPaymentExecution.setPayerId(payerId);
-
-        return thePayment.execute(apiContext, thPaymentExecution);
+    public Payment executePayment(String paymentId, String payerId) throws PayPalRESTException{
+        Payment payment = new Payment();
+        payment.setId(paymentId);
+        PaymentExecution paymentExecute = new PaymentExecution();
+        paymentExecute.setPayerId(payerId);
+        return payment.execute(apiContext, paymentExecute);
     }
+
 }
