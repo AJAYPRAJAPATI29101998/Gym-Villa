@@ -19,6 +19,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @RestController
+@RequestMapping("/api/v1/Booking-service")
 public class BookingController {
 
     @Autowired

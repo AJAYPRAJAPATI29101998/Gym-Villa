@@ -28,12 +28,11 @@ public class Consumer {
         userDTOConsumer.setBookingId(Integer.valueOf(userDTO.getBookingId()));
         userDTOConsumer.setUserName(userDTO.getUserName());
         userDTOConsumer.setUserEmail(userDTO.getUserEmail());
-        userDTOConsumer.setGymOwnerId((Integer.valueOf(userDTO.getGymOwnerId())));
-        userDTOConsumer.setSubscriptionPlan(new GymSubscriptions(userDTO.getSubscriptionPlan().getSubscriptionId(),userDTO.getSubscriptionPlan().getSubscriptionName(), userDTO.getSubscriptionPlan().getPrice()));
-        userDTOConsumer.setGymOwnerEmail(userDTO.getGymOwnerEmail());
         userDTOConsumer.setDateTime(userDTO.getDateTime());
+        userDTOConsumer.setGymOwnerEmail(userDTO.getGymOwnerEmail());
         userDTOConsumer.setSlotId(userDTO.getSlotId());
-
+        userDTOConsumer.setSubscriptionPlan(new GymSubscriptions(userDTO.getSubscriptionPlan().getSubscriptionId(),userDTO.getSubscriptionPlan().getSubscriptionName(), userDTO.getSubscriptionPlan().getPrice()));
+        userDTOConsumer.setGymOwnerId((Integer.valueOf(userDTO.getGymOwnerId())));
 
         this.bookingMailService.sendEmailToUser(userDTOConsumer);
         this.bookingMailService.sendEmailToGymOwner(userDTOConsumer);
