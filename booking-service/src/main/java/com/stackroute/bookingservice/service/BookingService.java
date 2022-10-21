@@ -7,7 +7,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 public interface BookingService {
-    Booking addBookingStatus(Booking booking);
+    Booking addBookingStatus(Booking booking) throws DataNotPresentException;
 
     Booking getBookingByid(int id) throws DataNotPresentException;
 

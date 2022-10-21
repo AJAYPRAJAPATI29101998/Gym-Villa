@@ -1,14 +1,14 @@
-package rabbitmq.domain;
+package com.stackroute.bookingservice.model;
 
-import com.stackroute.emailservice.pojo.GymSubscription;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
-
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class UserDTO {
+public class BookingDTO {
 
 
     private Integer bookingId;

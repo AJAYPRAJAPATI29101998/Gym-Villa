@@ -3,7 +3,10 @@ package com.stackroute.bookingservice.service;
 import com.stackroute.bookingservice.dao.BookingRepository;
 import com.stackroute.bookingservice.exceptions.DataNotPresentException;
 import com.stackroute.bookingservice.model.Booking;
+import com.stackroute.bookingservice.model.BookingDTO;
 import com.stackroute.bookingservice.model.BookingIdCounter;
+import com.stackroute.bookingservice.rqmproducer.BookingQueues;
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoOperations;
 import org.springframework.data.mongodb.core.query.Criteria;
@@ -12,6 +15,7 @@ import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.stereotype.Service;
 
 import java.sql.SQLException;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -23,11 +27,31 @@ public class BookingServiceImplementation implements BookingService {
     @Autowired
     private BookingRepository bookingRepository;
     @Autowired
+    private RabbitTemplate rabbitTemplate;
+    @Autowired
     private MongoOperations mongoOperations;
+    @Autowired
+    private GymOwnerServiceImplementation gymService;
 
     @Override
-    public Booking addBookingStatus(Booking booking) {
-        return this.bookingRepository.save(booking);
+    public Booking addBookingStatus(Booking booking) throws DataNotPresentException {
+        booking.setCreatedAt(LocalDateTime.now());
+        booking.setGymOwnerEmail(this.gymService.getGymOwnerEmail(booking.getGymId()));
+        booking.setBookingId(getSequenceNumber(Booking.SEQUENCE_NAME));
+        Booking currentBooking= this.bookingRepository.save(booking);
+        this.gymService.updateSlotToBooked(currentBooking.getGymId(), currentBooking.getSlotId());
+        BookingDTO bookingDTO = new BookingDTO();
+        bookingDTO.setBookingId(currentBooking.getBookingId());
+        bookingDTO.setUserName(currentBooking.getUserName());
+        bookingDTO.setUserEmail(currentBooking.getUserEmail());
+        bookingDTO.setCreatedAt(String.valueOf(currentBooking.getCreatedAt()));
+        bookingDTO.setGymOwnerEmail(currentBooking.getGymOwnerEmail());
+        bookingDTO.setSlotId(currentBooking.getSlotId());
+        bookingDTO.setGymSubscription(currentBooking.getGymSubscription());
+        bookingDTO.setGymId(currentBooking.getGymId());
+        rabbitTemplate.convertAndSend("booking_information_slots", "booking_routingkey", bookingDTO);
+        rabbitTemplate.convertAndSend(BookingQueues.TOPIC_EXCHNAGE, BookingQueues.ROUTING_KEY,bookingDTO);
+        return currentBooking;
     }
 
     @Override

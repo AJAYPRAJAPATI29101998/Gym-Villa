@@ -6,12 +6,13 @@ eureka:
     fetch-registry: true
 
 server:
-  port: 8086
+  port: 8080
 
 
 spring:
   application:
     name: "api-gateway"
+
   main:
     web-application-type: reactive
   cloud:
@@ -58,14 +59,17 @@ spring:
             - Path=/api/v1/User-profile-service/**
 
 
-    config:
-       uri: http://localhost:8086
-       fail-fast: false
-       retry:
-         maxAttempts: 20
+      config:
+        uri: http://localhost:8080
+        fail-fast: false
+        retry:
+          maxAttempts: 20
 
 
 
-    logging:
-      level:
-        '[org.springframework.cloud.gateway]': TRACE
+      logging:
+        level:
+          '[org.springframework.cloud.gateway]': TRACE
+
+
+

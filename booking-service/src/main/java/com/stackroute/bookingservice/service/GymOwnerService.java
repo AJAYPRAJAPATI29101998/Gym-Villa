@@ -22,4 +22,6 @@ public interface GymOwnerService {
 
     Boolean checkBookedSlot(int slotId,int gymId) throws DataNotPresentException, SlotAlreadyBookedException;
 
+    String getGymOwnerEmail(int gymId) throws DataNotPresentException;
+
 }

@@ -29,7 +29,7 @@ public class Review {
     private int slotId;
     private GymSubscription gymSubscription;
     @NotNull(message="gymOwnerId should not be empty")
-    private int gymOwnerId;
+    private int gymId;
 
     private String reviews;
     @Min(value=0,message = "rating valid only from 0 to 10")
