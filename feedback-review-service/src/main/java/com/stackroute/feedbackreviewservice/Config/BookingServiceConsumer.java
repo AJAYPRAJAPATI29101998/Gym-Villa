@@ -24,7 +24,7 @@ public class BookingServiceConsumer {
         reviewConsumer.setGymOwnerEmail(review.getGymOwnerEmail());
         reviewConsumer.setSlotId(review.getSlotId());
         reviewConsumer.setGymSubscription(review.getGymSubscription());
-        reviewConsumer.setGymOwnerId(review.getGymOwnerId());
+        reviewConsumer.setGymId(review.getGymId());
         reviewConsumer.setReviews("null");
         reviewConsumer.setRating("0");
         System.out.println(reviewConsumer.toString());
