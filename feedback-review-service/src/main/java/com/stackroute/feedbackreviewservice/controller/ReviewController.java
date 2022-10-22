@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/ReviewService/v1")
+@RequestMapping("/api/v1/Feedback-review-service")
 public class ReviewController {
 
     @Autowired

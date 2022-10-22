@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 //@Controller
-@RequestMapping("/v2/checkout/orders")
+@RequestMapping("/api/v1/Payment-service")
 public class PaypalController {
 
     @Autowired
