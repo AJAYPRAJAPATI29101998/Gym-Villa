@@ -1,38 +1,37 @@
 package com.stackroute.paymentservice.controller;
 
+
 import com.paypal.api.payments.Links;
 import com.paypal.api.payments.Payment;
 import com.paypal.base.rest.PayPalRESTException;
-import com.stackroute.paymentservice.model.PaymentModel;
-import com.stackroute.paymentservice.service.PaymentService;
+import com.stackroute.paymentservice.entity.Order;
+import com.stackroute.paymentservice.service.PaypalService;
+import com.stackroute.paymentservice.service.PaypalServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
-public class PaymentController {
 
+@RestController
+//@Controller
+@RequestMapping("/api/v1/Payment-service")
+public class PaypalController {
 
     @Autowired
-    PaymentService service;
+    PaypalServiceImpl service;
+
+
+    public static final String SUCCESS_URL = "pay/success";
+    public static final String CANCEL_URL = "pay/cancel";
 
 
 
-    public static final String SUCCESS_URL = "http://localhost:8092/pay/success";
-    public static final String CANCEL_URL = "http://localhost:8092/pay/cancel";
 
-    @GetMapping("/")
-    public String home() {
-        return "home";
-    }
 
     @PostMapping("/pay")
-    public String payment(@ModelAttribute("order") PaymentModel order) {
+    public String payment(@RequestBody Order order) {
         try {
-            Payment payment = service.createPayment(order.getPrice(), order.getCurrency(), order.getMethod(),
-                    order.getIntent(), order.getDescription(), "http://localhost:8092/" + CANCEL_URL,
-                    "http://localhost:8092/" + SUCCESS_URL);
+            Payment payment = service.createPayment(order, "http://localhost:8887/" + CANCEL_URL,
+                    "http://localhost:8887/" + SUCCESS_URL);
             for(Links link:payment.getLinks()) {
                 if(link.getRel().equals("approval_url")) {
                     return "redirect:"+link.getHref();
@@ -64,4 +63,6 @@ public class PaymentController {
         }
         return "redirect:/";
     }
+
+
 }

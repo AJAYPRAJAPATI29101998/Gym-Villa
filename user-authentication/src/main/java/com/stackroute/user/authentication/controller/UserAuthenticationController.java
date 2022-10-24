@@ -28,7 +28,7 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/v1")
+@RequestMapping("/api/v1/User-authentication-service")
 public class UserAuthenticationController {
 
     static final String TOKEN_PREFIX = "Bearer";

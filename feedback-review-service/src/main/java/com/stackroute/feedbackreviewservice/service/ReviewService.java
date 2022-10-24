@@ -11,7 +11,7 @@ public interface ReviewService {
 
    Review saveReview(Review review) ;
 
-   List<Review> getReviewByBookingId (Integer bookingId);
+   Review getReviewByBookingId (Integer bookingId);
 
 
 

@@ -107,4 +107,10 @@ public class GymOwnerServiceImplementation implements GymOwnerService {
         }
         return true;
     }
+
+    @Override
+    public String getGymOwnerEmail(int gymId) throws DataNotPresentException {
+        GymOwner gymOwner = getGymDetails(gymId);
+        return gymOwner.getEmailId();
+    }
 }

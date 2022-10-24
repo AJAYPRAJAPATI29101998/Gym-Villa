@@ -24,7 +24,7 @@ private ReviewRepository reviewRepo;
     }
 
     @Override
-    public List<Review> getReviewByBookingId(Integer bookingId) {
-       return reviewRepo.findAll();
+    public Review getReviewByBookingId(Integer bookingId) {
+       return reviewRepo.findById(bookingId).get();
     }
 }

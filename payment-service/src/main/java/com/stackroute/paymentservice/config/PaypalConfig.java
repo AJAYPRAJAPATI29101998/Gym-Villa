@@ -1,28 +1,31 @@
-package com.stackroute.paymentservice.paypalconfig;
+package com.stackroute.paymentservice.config;
 
 import com.paypal.base.rest.APIContext;
 import com.paypal.base.rest.OAuthTokenCredential;
 import com.paypal.base.rest.PayPalRESTException;
-import lombok.NonNull;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 
 import java.util.HashMap;
 import java.util.Map;
 
-public class PayPalConfig {
-    private String mode="sandbox";
+@Configuration
+public class PaypalConfig {
 
-    private String clientId="AZebFN6kJ8-iTRmLrcgHXcJeoGswllU2aA30UCTljTIw8x676JGYldrkoJbY2VT30QAUjLcsyOeYZ_-E";
-
-    private String clientSecret="ELaROaUeu6mG5YRLcmpb9GzCG2563iWwRD-EV_jJOUzR499iCOmgOeio_7-Y4SlPuAONHp3p-tMvjKnw";
+    @Value("${paypal.client.id}")
+    private String clientId;
+    @Value("${paypal.client.secret}")
+    private String clientSecret;
+    @Value("${paypal.mode}")
+    private String mode;
 
     @Bean
-    public Map paypalSdkConfig() {
-        Map configMap = new HashMap<>();
+    public Map<String, String> paypalSdkConfig() {
+        Map<String, String> configMap = new HashMap<>();
         configMap.put("mode", mode);
         return configMap;
     }
-
 
     @Bean
     public OAuthTokenCredential oAuthTokenCredential() {
@@ -30,12 +33,10 @@ public class PayPalConfig {
     }
 
     @Bean
-    @NonNull
     public APIContext apiContext() throws PayPalRESTException {
         APIContext context = new APIContext(oAuthTokenCredential().getAccessToken());
         context.setConfigurationMap(paypalSdkConfig());
         return context;
     }
-
 
 }

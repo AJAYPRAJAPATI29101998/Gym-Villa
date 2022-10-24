@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/ReviewService/v1")
+@RequestMapping("/api/v1/Feedback-review-service")
 public class ReviewController {
 
     @Autowired
@@ -29,9 +29,9 @@ public class ReviewController {
         return reviewService.saveReview(review);
     }
 
-    @GetMapping("/getByBookingId/{BookingID}")
+    @GetMapping("/getByBookingId/{id}")
 
-    public List<Review> getReviewById(@PathVariable Integer id){
+    public Review getReviewById(@PathVariable Integer id){
         return reviewService.getReviewByBookingId(id);
     }
 }
