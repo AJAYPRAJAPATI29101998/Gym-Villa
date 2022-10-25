@@ -63,11 +63,6 @@ public class UserAuthenticationController {
             }
             return jwtTokenUtil.generateToken(userAuthentication.getEmailId(),userAuthentication.getPassword());
         }
-        @GetMapping("/details/{emilid}")
-       public UserAuthentication gettingDetails(@PathVariable String emailid)
-       {
-           return userDetailsService.getUserData(emailid);
-       }
 
 
     @Operation(summary = "Welcome user", description = "gettinfg role")
