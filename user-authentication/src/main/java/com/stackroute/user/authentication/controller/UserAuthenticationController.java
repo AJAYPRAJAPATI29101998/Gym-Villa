@@ -64,6 +64,7 @@ public class UserAuthenticationController {
             return jwtTokenUtil.generateToken(userAuthentication.getEmailId(),userAuthentication.getPassword());
         }
 
+
     @Operation(summary = "Welcome user", description = "gettinfg role")
     @SecurityRequirement(name = "Bearer Authentication")
     @GetMapping("/gettingRole")
