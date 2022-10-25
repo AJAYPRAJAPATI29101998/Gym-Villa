@@ -27,7 +27,7 @@ public class BookingServiceConsumer {
         reviewConsumer.setGymId(review.getGymId());
         reviewConsumer.setReviews("null");
         reviewConsumer.setRating("0");
-        System.out.println(reviewConsumer.toString());
+//        System.out.println(reviewConsumer.toString());
         feedBackRepo.save(reviewConsumer);
     }
 
