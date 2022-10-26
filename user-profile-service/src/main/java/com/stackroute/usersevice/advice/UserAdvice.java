@@ -1,5 +1,6 @@
 package com.stackroute.usersevice.advice;
 
+import com.stackroute.usersevice.exceptions.UserAlreadyPresent;
 import com.stackroute.usersevice.exceptions.UserNotPresent;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.FieldError;
@@ -31,6 +32,12 @@ public class UserAdvice {
     @ResponseStatus(HttpStatus.NOT_FOUND)
     public String userNotPresent(UserNotPresent userNotPresent){
         return userNotPresent.getMessage();
+    }
+
+    @ExceptionHandler(UserAlreadyPresent.class)
+    @ResponseStatus(HttpStatus.CONFLICT)
+    public String userAlreadyPresent(UserAlreadyPresent userAlreadyPresent){
+        return userAlreadyPresent.getMessage();
     }
 
 }

@@ -28,7 +28,7 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/v1")
+@RequestMapping("/api/v1/User-authentication-service")
 public class UserAuthenticationController {
 
     static final String TOKEN_PREFIX = "Bearer";
@@ -63,6 +63,7 @@ public class UserAuthenticationController {
             }
             return jwtTokenUtil.generateToken(userAuthentication.getEmailId(),userAuthentication.getPassword());
         }
+
 
     @Operation(summary = "Welcome user", description = "gettinfg role")
     @SecurityRequirement(name = "Bearer Authentication")

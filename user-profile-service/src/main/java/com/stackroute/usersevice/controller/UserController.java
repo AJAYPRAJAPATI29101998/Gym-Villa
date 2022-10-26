@@ -1,5 +1,6 @@
 package com.stackroute.usersevice.controller;
 
+import com.stackroute.usersevice.exceptions.UserAlreadyPresent;
 import com.stackroute.usersevice.exceptions.UserNotPresent;
 import com.stackroute.usersevice.model.User;
 import com.stackroute.usersevice.service.UserServiceImplementation;
@@ -11,13 +12,16 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 
 @RestController
+@RequestMapping("/api/v1/User-profile-service")
 public class UserController {
     @Autowired
     private UserServiceImplementation userService;
 
     @PostMapping("/user")
-    public ResponseEntity<?> saveUser(@Valid @RequestBody User user){
-        return this.userService.saveUser(user);
+    public ResponseEntity<?> saveUser(@Valid @RequestBody User user) throws UserAlreadyPresent {
+
+            return new ResponseEntity<>(this.userService.saveUser(user), HttpStatus.OK);
+
     }
 
     @GetMapping("/users")

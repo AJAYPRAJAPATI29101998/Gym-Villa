@@ -18,18 +18,7 @@ services:
     hostname: localhost
     ports:
       - 8086:8086
-  product-webapp:
-    build: product-webapp/
-    image: product-webapp
-    depends_on:
-      - eureka-server
-      - api-gateway
-    restart: always
-    container_name: product-webapp
-    network_mode: "host"
-    hostname: localhost
-    ports:
-      - "8099:8099"
+
   rabbitmq:
     image: rabbitmq:management
     ports:
@@ -38,3 +27,111 @@ services:
     environment:
       RABBITMQ_DEFAULT_USER: "guest"
       RABBITMQ_DEFAULT_PASS: "guest"
+
+  booking-service:
+    build: booking-service/
+    container_name: booking-service
+    restart: always
+    network_mode: host
+    hostname: localhost
+    ports:
+      - "8881:8881"
+
+  chat-service:
+    build: chat-service/
+    container_name: chat-service
+    restart: always
+    network_mode: host
+    hostname: localhost
+    ports:
+      - "8882:8882"
+
+#  config-server:
+#    build: config-server/
+#    container_name: config-server
+#    restart: always
+#    network_mode: host
+#    hostname: localhost
+#    ports:
+#      - "8888:8888"
+
+  email-service:
+    build: email-service/
+    container_name: email-service
+    restart: always
+    network_mode: host
+    hostname: localhost
+    ports:
+      - "8883:8883"
+
+  feedback-review-service:
+    build: feedback-review-service/
+    container_name: feedback-review-service
+    restart: always
+    network_mode: host
+    hostname: localhost
+    ports:
+      - "8884:8884"
+
+  gym-owner-service:
+    build: gym-owner-service/
+    container_name: gym-owner-service
+    restart: always
+    network_mode: host
+    hostname: localhost
+    ports:
+      - "8885:8885"
+
+  payment-service:
+    build: payment-service/
+    container_name: payment-service
+    restart: always
+    network_mode: host
+    hostname: localhost
+    ports:
+      - "8886:8886"
+
+  user-authentication:
+    build: user-authentication/
+    container_name: user-authentication
+    restart: always
+    network_mode: host
+    hostname: localhost
+    ports:
+      - "8887:8887"
+
+  user-profile-service:
+    build: user-profile-service/
+    container_name: user-profile-service
+    restart: always
+    network_mode: host
+    hostname: localhost
+    ports:
+      - "8888:8888"
+
+  mongodb:
+    image: mongo:latest
+    container_name: mongo_container
+    network_mode: host
+    hostname: localhost
+    ports:
+      - "27017:27017"
+
+  elasticsearch:
+    image: elasticsearch:8.4.2
+    container_name: elasticsearch
+    ports:
+      - "9200:9200"
+
+  mysql:
+    image: mysql:latest
+    container_name: mysql
+    hostname: localhost
+    restart: always
+    ports:
+      - 3307:3307
+    environment:
+      MYSQL_USERNAME: 'root'
+      MYSQL_ROOT_PASSWORD: 'Hello143SQL'
+
+

@@ -54,9 +54,17 @@ public class JwtUserDetailsService implements UserDetailsService,UserAuthenticat
         {
             throw new UserAlreadyExist();
         }
+     else {
+            log.info("adding the new email{} into the Database", user.getEmailId());
+          UserAuthentication existingUser=new UserAuthentication();
+          existingUser.setRole(user.getRole());
+          existingUser.setEmailId(user.getEmailId());
+          existingUser.setPassword(user.getPassword());
+            return userAuthenticationRepository.save(existingUser);
+        }
 
-        log.info("adding the new email{} into the Database", user.getEmailId());
-        return userAuthenticationRepository.save(user);
+
+
 
     }
 
@@ -69,8 +77,10 @@ public class JwtUserDetailsService implements UserDetailsService,UserAuthenticat
         return userAuthentication.getRole();
     }
 
-
-
+    @Override
+    public UserAuthentication getUserData(String emailId) {
+        return userAuthenticationRepository.findById(emailId).orElse(null);
+    }
 
 
 }

@@ -35,6 +35,7 @@ public class Consumer {
         userDTOConsumer.setGymSubscription(new GymSubscription(userDTO.getGymSubscription().getSubscriptionType(), userDTO.getGymSubscription().getSubscriptionCost()));
         userDTOConsumer.setGymId(userDTO.getGymId());
 
+
         this.bookingMailService.sendEmailToUser(userDTOConsumer);
         this.bookingMailService.sendEmailToGymOwner(userDTOConsumer);
 

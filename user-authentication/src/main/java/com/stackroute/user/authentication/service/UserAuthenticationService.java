@@ -16,5 +16,7 @@ public interface UserAuthenticationService {
 
   public Role getRole(String emialId);
 
+  public UserAuthentication getUserData(String emailId);
+
 
 }

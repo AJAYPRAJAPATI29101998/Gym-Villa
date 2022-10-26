@@ -8,6 +8,7 @@ import org.springframework.mail.MailException;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
+@RequestMapping("/api/v1/Email-service")
 public class EmailController {
 
     final

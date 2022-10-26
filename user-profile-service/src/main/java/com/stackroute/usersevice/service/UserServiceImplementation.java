@@ -1,6 +1,7 @@
 package com.stackroute.usersevice.service;
 
 import com.mongodb.MongoException;
+import com.stackroute.usersevice.exceptions.UserAlreadyPresent;
 import com.stackroute.usersevice.exceptions.UserNotPresent;
 import com.stackroute.usersevice.model.User;
 import com.stackroute.usersevice.repository.UserRepository;
@@ -21,17 +22,20 @@ public class UserServiceImplementation implements UserService{
     private UserRepository userRepo;
 
     @Override
-    public ResponseEntity<?> saveUser(User user) {
-        try {
-            if (userRepo.findByEmailId(user.getEmailId()) != null) {
-                return new ResponseEntity<>("Email id already exist", HttpStatus.CONFLICT);
+    public User saveUser(User user) throws UserAlreadyPresent {
+        if (userRepo.findByEmailId(user.getEmailId()) != null) {
+                throw new UserAlreadyPresent("User alredy presenet with EmailId :- "+user.getEmailId());
             }
+        try {
             User getUser = this.userRepo.save(user);
-            return new ResponseEntity<>(getUser, HttpStatus.OK);
+            return getUser;
+
         }
-        catch (Exception m){
-            return new ResponseEntity<>(m.getMessage(),HttpStatus.BAD_GATEWAY);
+        catch (Exception e){
+            throw new RuntimeException("Error in the service - "+e.getMessage());
         }
+
+
     }
 
     @Override

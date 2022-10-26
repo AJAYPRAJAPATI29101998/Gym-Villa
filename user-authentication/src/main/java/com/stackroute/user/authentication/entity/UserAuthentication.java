@@ -30,4 +30,7 @@ public class UserAuthentication {
 
     public UserAuthentication(String user, String s, String s1, String user1) {
     }
+
+    public UserAuthentication(String s, String s1, Role user) {
+    }
 }
