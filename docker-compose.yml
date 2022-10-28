@@ -7,7 +7,7 @@ services:
     network_mode: "host"
     hostname: localhost
     ports:
-      - 8076:8076
+      - 8761:8761
 
   api-gateway:
     build: api-gateway/

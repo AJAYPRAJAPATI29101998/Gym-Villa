@@ -79,6 +79,10 @@ public class BookingServiceImplementation implements BookingService {
     @Override
     public Booking updateBooking(Booking booking) {
         try {
+            Optional<Booking> booking1 = this.bookingRepository.findById(booking.getBookingId());
+            if(booking1.isEmpty()){
+                throw new DataNotPresentException("booking not present with booking id - "+booking.getBookingId());
+            }
             return this.bookingRepository.save(booking);
         } catch (Exception e) {
             System.err.println(e);
