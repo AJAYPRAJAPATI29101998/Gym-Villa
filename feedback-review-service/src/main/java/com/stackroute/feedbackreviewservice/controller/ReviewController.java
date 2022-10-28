@@ -1,6 +1,7 @@
 package com.stackroute.feedbackreviewservice.controller;
 
 
+import com.stackroute.feedbackreviewservice.exception.GymIdNotFoundException;
 import com.stackroute.feedbackreviewservice.exception.ReviewAlreadyExistsException;
 import com.stackroute.feedbackreviewservice.exception.ReviewNotFoundException;
 import com.stackroute.feedbackreviewservice.model.Review;
@@ -30,9 +31,15 @@ public class ReviewController {
         return reviewService.saveReview(review);
     }
 
-    @GetMapping("/getByBookingId/{id}")
-
-    public Review getReviewById(@PathVariable Integer id) throws ReviewNotFoundException {
+    @GetMapping("/ReviewByBookingId/{id}")
+    public Review getReviewByBookingId(@PathVariable Integer id) throws ReviewNotFoundException {
         return reviewService.getReviewByBookingId(id);
     }
-}
+
+   @GetMapping("/ReviewByGymId/{gymId}")
+    public List<Review> getReviewByGymId(@PathVariable Integer gymId) throws GymIdNotFoundException {
+      return  reviewService.getDetailsByGymId(gymId);
+
+       }
+    }
+

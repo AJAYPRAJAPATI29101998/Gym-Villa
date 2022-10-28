@@ -47,11 +47,11 @@
 
 		<!-- http://localhost:8085/swagger-ui/index.html -->
 		<!-- https://mvnrepository.com/artifact/org.springdoc/springdoc-openapi-ui -->
-		<dependency>
-			<groupId>org.springdoc</groupId>
-			<artifactId>springdoc-openapi-ui</artifactId>
-			<version>1.6.11</version>
-		</dependency>
+<!--		<dependency>-->
+<!--			<groupId>org.springdoc</groupId>-->
+<!--			<artifactId>springdoc-openapi-ui</artifactId>-->
+<!--			<version>1.6.11</version>-->
+<!--		</dependency>-->
 
 		<!-- https://mvnrepository.com/artifact/org.springframework.amqp/spring-rabbit -->
 		<dependency>

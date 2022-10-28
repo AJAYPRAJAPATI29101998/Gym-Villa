@@ -1,6 +1,7 @@
 package com.stackroute.feedbackreviewservice.service;
 
 
+import com.stackroute.feedbackreviewservice.exception.GymIdNotFoundException;
 import com.stackroute.feedbackreviewservice.exception.ReviewAlreadyExistsException;
 import com.stackroute.feedbackreviewservice.exception.ReviewNotFoundException;
 import com.stackroute.feedbackreviewservice.model.Review;
@@ -14,7 +15,5 @@ public interface ReviewService {
 
    Review getReviewByBookingId (Integer bookingId) throws ReviewNotFoundException;
 
-
- // Review findByBookingId(Integer id);
-
+   List<Review> getDetailsByGymId(Integer gymId) throws GymIdNotFoundException;
 }

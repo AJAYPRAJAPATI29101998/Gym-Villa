@@ -1,5 +1,6 @@
 package com.stackroute.feedbackreviewservice.service;
 
+import com.stackroute.feedbackreviewservice.exception.GymIdNotFoundException;
 import com.stackroute.feedbackreviewservice.exception.ReviewAlreadyExistsException;
 import com.stackroute.feedbackreviewservice.exception.ReviewNotFoundException;
 import com.stackroute.feedbackreviewservice.model.Review;
@@ -43,26 +44,21 @@ public class ReviewServiceImpl implements ReviewService {
     public Review getReviewByBookingId(Integer bookingId) throws ReviewNotFoundException {
         Review review = reviewRepo.findById(bookingId).orElse(null);
         if(review==null){
-            throw new ReviewNotFoundException("review not");
+            throw new ReviewNotFoundException("review not present");
         }
-//        if (review.getReviews() != null || review.getRating() != null) {
-//            return review;
-//        }
-        //        reviewById = reviewRepo.findById(bookingId).orElse(null);
-//      // Review reviewById = reviewRepo.findByBookingid(bookingId);
-//        if (reviewById == null) {
-//            throw new ReviewNotFoundException("review not exists with this id");
-//        //  return reviewRepo.findById(bookingId).get();
-//    } else
-//
-//    {
-//        return  reviewRepo.findById(bookingId).orElse(null);
-        //   }
 
-
-//    @Override
-//    public Review findByBookingId(Integer id) {
-//        return reviewRepo.findById()id);
        return review;
     }
-}
+
+    @Override
+    public List<Review> getDetailsByGymId(Integer gymId) throws GymIdNotFoundException{
+        List<Review> GymDetailByGymId=reviewRepo.getGymByGymId(gymId);
+        if(GymDetailByGymId.isEmpty()){
+            throw new GymIdNotFoundException("gym id not present");
+        }
+        return GymDetailByGymId;
+    }
+
+
+    }
+

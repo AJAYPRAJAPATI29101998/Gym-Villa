@@ -17,7 +17,7 @@ public class Exceptions_impl {
 
     @ExceptionHandler(ReviewAlreadyExistsException .class)
     @ResponseStatus(value = HttpStatus.CONFLICT)
-    public String UserAlredyDefoined(ReviewAlreadyExistsException  userAlreadyExist)
+    public String ReviewAlreadyDefined(ReviewAlreadyExistsException  ReviewAlreadyExist)
     {
         return "review already exists in the DB";
     }
@@ -53,6 +53,11 @@ public class Exceptions_impl {
     {
         return "review not Exists this this id";
     }
-
+    @ExceptionHandler(GymIdNotFoundException.class)
+    @ResponseStatus(value = HttpStatus.NOT_FOUND)
+    public String GymIDNotPresent(GymIdNotFoundException IdNotExist)
+    {
+        return "GymID not Exists this  id";
+    }
 }
 

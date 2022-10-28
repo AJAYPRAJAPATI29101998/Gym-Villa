@@ -28,18 +28,18 @@ public class BookingController {
 
 
 
-    @GetMapping("/gym")
+    @GetMapping("/gym-available")
     public List<GymOwner> getAllGymData() throws DataNotPresentException {
         return this.gymService.listAllGym();
     }
 
-    @PostMapping("/booking")
+    @PostMapping("/createbooking")
     public ResponseEntity<?> addBooking(@Valid @RequestBody Booking newBooking) throws DataNotPresentException, SlotAlreadyBookedException {
         try {
             Boolean check = this.gymService.checkBookedSlot(newBooking.getSlotId(), newBooking.getGymId());
             if (check) {
                 Booking booking = this.bookingService.addBookingStatus(newBooking);
-                return new ResponseEntity<>(this.bookingService.getBookingByid(newBooking.getBookingId()), HttpStatus.OK);
+                return new ResponseEntity<>(this.bookingService.getBookingByid(newBooking.getBookingId()), HttpStatus.CREATED);
             }
             return new ResponseEntity<>("Slot already booked", HttpStatus.BAD_REQUEST);
         } catch (Exception e) {
@@ -47,13 +47,13 @@ public class BookingController {
         }
     }
 
-    @GetMapping("/slots/{id}")
+    @GetMapping("/availableslots/{id}")
     public GymOwner getAvailableSlots(@PathVariable int id) throws DataNotPresentException {
         return this.gymService.getSlotsByGymId(id);
     }
 
 
-    @DeleteMapping("booking/{id}")
+    @DeleteMapping("cancell/{id}")
     public ResponseEntity<?> deleteBooking(@PathVariable int id) throws DataNotPresentException {
         Booking booking = this.bookingService.getBookingByid(id);
 
