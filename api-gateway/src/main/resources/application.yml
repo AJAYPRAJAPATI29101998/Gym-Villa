@@ -1,7 +1,7 @@
 eureka:
   client:
     service-url:
-      defaultZone: http://localhost:8076/eureka
+      defaultZone: http://localhost:8761/eureka
     register-with-eureka: true
     fetch-registry: true
 
@@ -57,8 +57,6 @@ spring:
           uri: http://localhost:8888/
           predicates:
             - Path=/api/v1/User-profile-service/**
-
-
       config:
         uri: http://localhost:8080
         fail-fast: false
