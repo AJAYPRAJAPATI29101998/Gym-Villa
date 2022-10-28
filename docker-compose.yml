@@ -1,4 +1,4 @@
-version: "3"
+version: "2"
 services:
   eureka-server:
     build: eureka-server/
@@ -8,6 +8,7 @@ services:
     hostname: localhost
     ports:
       - 8076:8076
+
   api-gateway:
     build: api-gateway/
     container_name: api-gateway
@@ -22,8 +23,8 @@ services:
   rabbitmq:
     image: rabbitmq:management
     ports:
-      - "5672:5672"
-      - "15672:15672"
+      - 5672:5672
+      - 15672:15672
     environment:
       RABBITMQ_DEFAULT_USER: "guest"
       RABBITMQ_DEFAULT_PASS: "guest"
@@ -35,7 +36,7 @@ services:
     network_mode: host
     hostname: localhost
     ports:
-      - "8881:8881"
+      - 8881:8881
 
   chat-service:
     build: chat-service/
@@ -44,7 +45,7 @@ services:
     network_mode: host
     hostname: localhost
     ports:
-      - "8882:8882"
+      - 8882:8882
 
 #  config-server:
 #    build: config-server/
@@ -62,7 +63,7 @@ services:
     network_mode: host
     hostname: localhost
     ports:
-      - "8883:8883"
+      - 8883:8883
 
   feedback-review-service:
     build: feedback-review-service/
@@ -71,7 +72,7 @@ services:
     network_mode: host
     hostname: localhost
     ports:
-      - "8884:8884"
+      - 8884:8884
 
   gym-owner-service:
     build: gym-owner-service/
@@ -80,7 +81,7 @@ services:
     network_mode: host
     hostname: localhost
     ports:
-      - "8885:8885"
+      - 8885:8885
 
   payment-service:
     build: payment-service/
@@ -89,7 +90,7 @@ services:
     network_mode: host
     hostname: localhost
     ports:
-      - "8886:8886"
+      - 8886:8886
 
   user-authentication:
     build: user-authentication/
@@ -98,7 +99,7 @@ services:
     network_mode: host
     hostname: localhost
     ports:
-      - "8887:8887"
+      - 8887:8887
 
   user-profile-service:
     build: user-profile-service/
@@ -107,7 +108,7 @@ services:
     network_mode: host
     hostname: localhost
     ports:
-      - "8888:8888"
+      - 8888:8888
 
   mongodb:
     image: mongo:latest
@@ -115,13 +116,13 @@ services:
     network_mode: host
     hostname: localhost
     ports:
-      - "27017:27017"
+      - 27017:27017
 
   elasticsearch:
     image: elasticsearch:8.4.2
     container_name: elasticsearch
     ports:
-      - "9200:9200"
+      - 9200:9200
 
   mysql:
     image: mysql:latest
