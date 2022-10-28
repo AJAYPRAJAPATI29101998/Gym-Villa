@@ -32,12 +32,12 @@ public class ReviewController {
     }
 
     @GetMapping("/ReviewByBookingId/{id}")
-    public Review getReviewById(@PathVariable Integer id) throws ReviewNotFoundException {
+    public Review getReviewByBookingId(@PathVariable Integer id) throws ReviewNotFoundException {
         return reviewService.getReviewByBookingId(id);
     }
 
    @GetMapping("/ReviewByGymId/{gymId}")
-    public List<Review> getGymId(@PathVariable Integer gymId) throws GymIdNotFoundException {
+    public List<Review> getReviewByGymId(@PathVariable Integer gymId) throws GymIdNotFoundException {
       return  reviewService.getDetailsByGymId(gymId);
 
        }
