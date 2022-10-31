@@ -5,6 +5,7 @@ import com.stackroute.user.authentication.service.JwtUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.BeanIds;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -43,9 +44,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.csrf().disable().authorizeRequests().antMatchers("/v1/authenticate")
+        http.cors().and().csrf().disable().authorizeRequests().antMatchers("/v1/authenticate","/v1/registration", "/swagger-resources/**","/swagger-ui/**","/webjars/**","/api/v1/User-authentication-service/registration","/api/v1/User-authentication-service/authenticate","/api/v1/User-authentication-service/gettingRole","/v3/api-docs/**","/v2/api-docs")
 
-                .permitAll().antMatchers("/v1/registration","/swagger-ui/**","/v3/api-docs/**")
+                .permitAll().antMatchers(HttpMethod.GET)
 
                 .permitAll().anyRequest().authenticated()
 

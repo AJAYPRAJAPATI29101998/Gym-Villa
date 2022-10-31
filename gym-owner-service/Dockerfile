@@ -1,4 +1,4 @@
 FROM openjdk:11
-ADD ./target/gym-owner-service-0.0.1-SNAPSHOT.jar /usr/src/gym-owner-service-0.0.1-SNAPSHOT.jar
-WORKDIR usr/src
+ARG JAR_FILE=target/*.jar
+COPY ${JAR_FILE} gym-owner-service-0.0.1-SNAPSHOT.jar
 ENTRYPOINT ["java","-jar","/gym-owner-service-0.0.1-SNAPSHOT.jar"]
