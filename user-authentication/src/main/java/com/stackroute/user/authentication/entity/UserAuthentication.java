@@ -1,6 +1,7 @@
 package com.stackroute.user.authentication.entity;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.validation.annotation.Validated;
@@ -14,6 +15,7 @@ import javax.validation.constraints.Pattern;
 @Entity
 @Data
 @Validated
+@AllArgsConstructor
 @NoArgsConstructor
 public class UserAuthentication {
     @Id
@@ -28,9 +30,4 @@ public class UserAuthentication {
     private Role role;
 
 
-    public UserAuthentication(String user, String s, String s1, String user1) {
-    }
-
-    public UserAuthentication(String s, String s1, Role user) {
-    }
 }

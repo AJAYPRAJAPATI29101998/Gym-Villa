@@ -73,7 +73,7 @@ public class JwtUserDetailsService implements UserDetailsService,UserAuthenticat
     @Override
     public Role getRole(String emailId) {
         UserAuthentication userAuthentication=userAuthenticationRepository.findById(emailId).orElseThrow(()->new UsernameNotFoundException(""));
-       // System.out.println(userAuthentication.getRole()+"printing in swervice");
+
         return userAuthentication.getRole();
     }
 

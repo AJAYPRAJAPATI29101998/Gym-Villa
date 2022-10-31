@@ -111,16 +111,7 @@ public class ServiceTest {
     }
 
 
-//    @Test
-//    public void jwtTokenValidation() throws UsernameNotFoundException
-//    {
-//        HttpServletRequest httpServletRequest ;
-//       // httpServletRequest=eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJyYXZpa3VtYXJAZ21haWwuY29tIiwiZXhwIjoxNjY2MTc4Mzc2LCJpYXQiOjE2NjYxNDIzNzZ9.fUNKDVtbCC87vQSpefaBn7ABKKouCO4YggoJiQPLX8U";
-//        UserAuthentication userAuthentication= (UserAuthentication) service.loadUserByUsername("rameshbabu11@gmail.com");
-//        new User(userAuthentication.getEmailId(),userAuthentication.getPassword(),new ArrayList<>());
-//      //  userAuthenticationController.gettingRole(eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJyYXZpa3VtYXJAZ21haWwuY29tIiwiZXhwIjoxNjY2MTc4Mzc2LCJpYXQiOjE2NjYxNDIzNzZ9.fUNKDVtbCC87vQSpefaBn7ABKKouCO4YggoJiQPLX8U);
 //
-//    }
 
     @Test
     public  void jwt()
@@ -143,6 +134,7 @@ public class ServiceTest {
 
     private void assertTrue(boolean compareTo) {
     }
+
 
 }
 
