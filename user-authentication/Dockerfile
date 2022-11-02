@@ -1,4 +1,4 @@
 FROM openjdk:11
-ADD ./target/user-authentication-0.0.1-SNAPSHOT.jar /usr/src/user-authentication-0.0.1-SNAPSHOT.jar
-WORKDIR usr/src
+ARG JAR_FILE=target/*.jar
+COPY ${JAR_FILE} user-authentication-0.0.1-SNAPSHOT.jar
 ENTRYPOINT ["java","-jar","/user-authentication-0.0.1-SNAPSHOT.jar"]
