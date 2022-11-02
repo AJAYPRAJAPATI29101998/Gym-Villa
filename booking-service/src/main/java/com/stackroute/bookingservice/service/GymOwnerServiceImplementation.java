@@ -103,7 +103,7 @@ public class GymOwnerServiceImplementation implements GymOwnerService {
             throw new DataNotPresentException("No slot present with Slot ID -" + slotId + "on gym - " + gymId);
         }
         if (status.get().getSlotStatus() == SlotStatus.BOOKED) {
-            throw new SlotAlreadyBookedException("Slot is booked for Slot ID -" + slotId + "on gym - " + gymId);
+            throw new SlotAlreadyBookedException("Slot is booked for Slot ID - " + slotId + " on gym - " + gymId);
         }
         return true;
     }
